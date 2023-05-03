@@ -27,3 +27,4 @@ def read_person_by_id(person_id: int, db: Session = Depends(get_db)):
     if person_id is None:
         raise HTTPException(status_code=404, detail="Person not found")
     return person
+
