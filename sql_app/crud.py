@@ -15,6 +15,13 @@ def get_person_by_last_name(db: Session, last_name: str):
 def get_person_by_first_name(db: Session, first_name):
     return db.query(models.Master).filter(models.Master.first_name == first_name).first()
 
+# defining methods to get data from second table
+
+def get_city_by_id(db: Session, city_id: int):
+    return db.query(models.Mereni_data).filter(models.Mereni_data.id == city_id).first()
+
+
+
 # now define methotds to create and save data
 
 def create_person(db: Session, person:schemas.MasterCreate):

@@ -10,7 +10,7 @@ class Master(Base):
     first_name = Column(String)
     last_name = Column(String)
 
-   # mereni_data = relationship("Mereni_data", back_populates="ref_master")
+    # mereni_data = relationship("Mereni_data", back_populates="ref_master")
 
 class Mereni_data(Base):
     __tablename__ = "mereni_data"
