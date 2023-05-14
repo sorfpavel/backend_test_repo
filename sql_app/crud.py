@@ -21,7 +21,6 @@ def get_city_by_id(db: Session, city_id: int):
     return db.query(models.Mereni_data).filter(models.Mereni_data.id == city_id).first()
 
 
-
 # now define methotds to create and save data
 
 def create_person(db: Session, person:schemas.MasterCreate):
@@ -29,4 +28,5 @@ def create_person(db: Session, person:schemas.MasterCreate):
     db.add(db_person)   
     db.commit()
     db.refresh(db_person)
+    return db_person
 

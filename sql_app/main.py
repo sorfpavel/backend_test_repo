@@ -37,10 +37,8 @@ def read_city_by_id(city_id:int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail = "Id not found")
     return city
 
+@app.post("/person/", response_model=schemas.Master)
+def create_person(person: schemas.MasterCreate, db: Session = Depends(get_db)):
+    # could be condition to check if there is already the object
 
-# @app.post("/person/", response_model=schemas.Master)
-# def create_person(person: schemas.MasterCreate, db: Session = Depends(get_db)):
-#     db_person = crud.create_person(db, last_name = person.last_name)
-#     if db_person:
-#         raise HTTPException(status_code=200,detail="User succesfully created.")
-#     return db_person
+    return crud.create_person(db = db, person=person)
