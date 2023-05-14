@@ -43,16 +43,9 @@ def read_city_by_person(last_name: str, db: Session = Depends(get_db)):
     city = crud.get_city_by_user(db, last_name=last_name)
     return city
 
-# @app.get("/residence_try/{id}")
-# def read_city_by_persons_id(last_name: str, db: Session = Depends(get_db)):
-#     persons_residence = crud.test(db, last_name=last_name)
-#     return persons_residence
 
+@app.post("/person_create/", response_model=schemas.MasterCreate) 
+def create_person(person: schemas.MasterCreate, db: Session = Depends(get_db)):
+    # could be condition to check if there is already the object
 
-
-
-# @app.post("/person/", response_model=schemas.MasterCreate) 
-# def create_person(person: schemas.MasterCreate, db: Session = Depends(get_db)):
-#     # could be condition to check if there is already the object
-
-#     return crud.create_person(db = db, person=person)
+    return crud.create_person(db = db, person=person)

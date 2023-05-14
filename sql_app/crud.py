@@ -35,8 +35,8 @@ def get_city_by_user(db: Session, last_name):
 
 # now define methotds to create and save data
 
-def create_person(db: Session, person:schemas.MasterCreate):
-    db_person = models.Master
+def create_person(db: Session, person: schemas.MasterCreate):
+    db_person = models.Master(first_name = person.first_name, last_name = person.last_name, ref_bydliste = person.ref_bydliste)
     db.add(db_person)   
     db.commit()
     db.refresh(db_person)
