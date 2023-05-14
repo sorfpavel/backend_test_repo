@@ -24,9 +24,13 @@ def get_city_by_id(db: Session, city_id: int):
 
 # method to read the city based on users last_name
 
-def get_city_by_user(db: Session, last_name: str):
-    person = db.query(models.Master).filter(models.Master.last_name == last_name).first()
-    return db.query(models.Mereni_data).filter(models.Mereni_data.ref_master == person.id).first()
+# def get_city_by_user(db: Session, last_name: str):
+#     person = db.query(models.Master).filter(models.Master.last_name == last_name).first()
+#     return db.query(models.Mereni_data).filter(models.Mereni_data.ref_master == person.id).first()
+
+def get_city_by_user(db: Session, last_name):
+    person_residence = db.query(models.Mereni_data).join(models.Master).filter(models.Master.last_name == last_name).first()
+    return person_residence.bydliste
 
 
 # now define methotds to create and save data

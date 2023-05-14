@@ -38,10 +38,15 @@ def read_city_by_id(city_id:int, db: Session = Depends(get_db)):
     return city
 
 
-@app.get("/residence/{last_name}", response_model=schemas.MereniDataRead) # this method returns city based on users last_name
+@app.get("/residence/{last_name}") # this method returns city based on users last_name
 def read_city_by_person(last_name: str, db: Session = Depends(get_db)):
     city = crud.get_city_by_user(db, last_name=last_name)
     return city
+
+# @app.get("/residence_try/{id}")
+# def read_city_by_persons_id(last_name: str, db: Session = Depends(get_db)):
+#     persons_residence = crud.test(db, last_name=last_name)
+#     return persons_residence
 
 
 
