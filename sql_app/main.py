@@ -1,14 +1,11 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
-
 from . import crud, models, schemas
-
 from .database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
-
+app = FastAPI() # creating main app
 
 # Dependency
 def get_db():
@@ -17,6 +14,8 @@ def get_db():
         yield db
     finally:
         db.close()
+
+# do samostatného souboru
 
 
 # Defining path methods
@@ -28,8 +27,6 @@ def read_person_by_id(person_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Person not found")
     return person
 
-# path method to return city by id
-
 @app.get("/city/{city_id}", response_model=schemas.MereniDataRead) # this method returns city by id (different table than first one)
 def read_city_by_id(city_id:int, db: Session = Depends(get_db)):
     city = crud.get_city_by_id(db, city_id=city_id)
@@ -37,15 +34,12 @@ def read_city_by_id(city_id:int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail = "Id not found")
     return city
 
-
 @app.get("/residence/{last_name}") # this method returns city based on users last_name
 def read_city_by_person(last_name: str, db: Session = Depends(get_db)):
     city = crud.get_city_by_user(db, last_name=last_name)
     return city
 
-
-@app.post("/person_create/", response_model=schemas.MasterCreate) 
+@app.post("/person_create/", response_model=schemas.MasterCreate) # method to create new person in database
 def create_person(person: schemas.MasterCreate, db: Session = Depends(get_db)):
-    # could be condition to check if there is already the object
-
+    # should be condition to check if there is already the object
     return crud.create_person(db = db, person=person)
